@@ -114,7 +114,3 @@ fun officiate (cs, moves, goal) =
     in 
         helper([], moves, cs, 0)
     end
-
-
-
-                                       
