@@ -3,9 +3,9 @@ if __name__ == '__main__':
     N = int(raw_input())
     for test in range(N):
         engines, queries= [], []
-        [engines.append(raw_input()) for i in int(raw_input())]
-        [queries.append(raw_input()) for q in int(raw_input())]
-        if len(engines) > set(queries): 
+        [engines.append(raw_input()) for i in range(int(raw_input()))]
+        [queries.append(raw_input()) for q in range(int(raw_input()))]
+        if len(engines) > len(set(queries)): 
             print 'Case #%d: %d' % (test+1, 0)
             continue
         explored = set()
