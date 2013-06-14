@@ -1,3 +1,4 @@
+import Data.List
 -- 1. find the last elem in the list
 
 myLast [x] = x
@@ -50,11 +51,11 @@ compress (x:y:ys) = if x == y then compress (y:ys) else x : compress (y:ys)
 pack [] = []
 pack (x:xs) = let (first, rest) = span (==x) xs
               in  (x:first) : pack rest
-              
 
--- 10. length 
+-- 10. add length to pack
 
-encode xs = map (\x -> (length x, head x)) . pack . xs
+encode :: Eq a => [a] -> [(Int, a)]
+encode = map (\x -> (length x, head x)) . group
 
 
 -- 11.
@@ -79,13 +80,32 @@ dropEvery xs n = helper xs n
           helper (_:xs) 1 = helper xs n
           helper (x:xs) n = x : helper xs (n-1)
 
-
 -- 17. split the list into two parts, the length of the first part is given.
 
 split (x:xs) n | n > 0 = let (f, l) = split xs (n-1) in (x : f, l)
 split xs _ = ([], xs)
 
 -- 18. extract a slice form a list
+
+--slice [] _ _ = []
+--slice xs a b = helper xs a b []
+--    where helper xs a b res = if a >= b then res else 
+
+slice xs a b | a>0 = take (b-a+1) $ drop (a-1) xs
+
+-- 19. rotate a list N places to the left
+
+rotate xs 0 = xs
+rotate xs n | n>0         = drop n xs ++ take n xs
+            | otherwise   = let l = ((length xs) + n) in 
+                            drop l xs ++ take l xs
+
+-- 20. remove the K'th elem from a list
+
+removeAt 1 (x:xs) = (x, xs)
+removeAt n (x:xs) = (l, x:r)
+         where (l, r) = removeAt (n-1) xs
+
 
 
 
